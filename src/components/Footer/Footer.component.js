@@ -6,7 +6,6 @@ const Footer = props => (
       height: 250,
       display: "flex",
       flex: 1,
-      margin: props.noMargin ? 0 : -25,
       backgroundImage:
         "linear-gradient(204deg, rgb(20, 165, 222), rgb(0, 0, 0))"
     }}

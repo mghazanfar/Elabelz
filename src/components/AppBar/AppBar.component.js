@@ -141,6 +141,7 @@ class MiniDrawer extends React.Component {
         </AppBar>
         <Drawer
           variant="permanent"
+          PaperProps={{ style: { height: "100%" } }}
           classes={{
             paper: classNames(
               classes.drawerPaper,
