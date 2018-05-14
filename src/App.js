@@ -3,7 +3,6 @@ import AppBar from "./components/AppBar";
 import { Switch, BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Root from "./components/Root";
 import Men from "./components/Men";
-import Footer from "./components/Footer";
 
 class App extends Component {
   render() {
@@ -20,7 +19,6 @@ class App extends Component {
             <Route exact path="/" component={Root} />
             <Route path="/men-clothing" component={Men} />
           </Switch>
-          <Footer style={{ margin: 0 }} />
         </AppBar>
       </Router>
     );
