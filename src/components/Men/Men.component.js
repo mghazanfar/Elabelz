@@ -1,11 +1,11 @@
-import React from "react";
-import menProducts from "./data";
-import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
-import Grid from "material-ui/Grid";
-import Button from "material-ui/Button";
-import Typography from "material-ui/Typography";
-import Footer from "../Footer";
-import Pants from "./img/pants1.jpg";
+import React from 'react';
+import menProducts from './data';
+import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import Grid from 'material-ui/Grid';
+import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
+import Footer from '../Footer';
+import Pants from './img/pants1.jpg';
 class MenProducts extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +16,16 @@ class MenProducts extends React.Component {
     this.autoSort = this.autoSort.bind(this);
     this.handleRightClick = this.handleRightClick.bind(this);
   }
+
   autoSort() {
+    this.setState({
+      data: menProducts.sort(function(a, b) {
+        return a.qty - b.qty;
+      })
+    });
+  }
+
+  handleChange() {
     this.setState({
       data: menProducts.sort(function(a, b) {
         return a.qty - b.qty;
@@ -26,12 +35,12 @@ class MenProducts extends React.Component {
 
   handleRightClick(e) {
     e.preventDefault();
-    e.type == "contextmenu" &&
+    e.type == 'contextmenu' &&
       this.setState({
         selected: this.state.selected.concat({
-          name: e.target.getAttribute("name"),
-          img: e.target.getAttribute("img"),
-          sku: e.target.getAttribute("sku")
+          name: e.target.getAttribute('name'),
+          img: e.target.getAttribute('img'),
+          sku: e.target.getAttribute('sku')
         })
       });
   }
@@ -41,15 +50,15 @@ class MenProducts extends React.Component {
     temp = total.reduce(function(acc, val) {
       return acc + val;
     });
-    console.log("Total", temp);
+    console.log('Total', temp);
     return (
       <React.Fragment>
         <div style={{ padding: 25 }}>
           <div
             style={{
-              display: "flex",
+              display: 'flex',
               flex: 1,
-              justifyContent: "space-between"
+              justifyContent: 'space-between'
             }}
           >
             <Typography variant="headline">Men Clothing Products</Typography>
@@ -69,7 +78,7 @@ class MenProducts extends React.Component {
                         sku={product.sku}
                         image={product.thumbnail}
                         title={product.name}
-                        style={{ height: 250, backgroundSize: "contain" }}
+                        style={{ height: 250, backgroundSize: 'contain' }}
                       />
                       <CardContent>
                         <Typography
@@ -93,17 +102,17 @@ class MenProducts extends React.Component {
                         style={{
                           backgroundColor:
                             product.qty / temp < 0.2
-                              ? "rgba(87, 255, 18, 0.48)"
+                              ? 'rgba(87, 255, 18, 0.48)'
                               : product.qty / temp >= 0.2 &&
                                 product.qty / temp < 0.7
-                                ? "rgba(255, 171, 18, 0.48)"
+                                ? 'rgba(255, 171, 18, 0.48)'
                                 : product.qty / temp >= 0.7 &&
                                   product.qty / temp < 0.85
-                                  ? "rgba(255, 0, 0, 0.59)"
+                                  ? 'rgba(255, 0, 0, 0.59)'
                                   : product.qty / temp >= 0.85 &&
                                     product.qty / temp < 0.99
-                                    ? "rgba(255, 0, 0, 0.77)"
-                                    : "black"
+                                    ? 'rgba(255, 0, 0, 0.77)'
+                                    : 'black'
                         }}
                       >
                         <Button size="small" color="primary">
@@ -136,6 +145,13 @@ class MenProducts extends React.Component {
                   </Grid>
                 ))}
               </Grid>
+              <Button
+                onClick={this.handleChange}
+                color="primary"
+                variant="raised"
+              >
+                Save Changes
+              </Button>
             </Grid>
           </Grid>
         </div>
