@@ -93,21 +93,38 @@ class MenProducts extends React.Component {
                 </Grid>
               </Droppable>
             </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              Selected Items:
-              <Grid container spacing={24}>
-                {this.state.selected.map(selectedItem => (
-                  <Grid item xs={12} md={6} lg={4}>
-                    <Draggable type="clothes" data={selectedItem.name}>
-                      <SelectedProductCard
-                        image={selectedItem.img}
-                        name={selectedItem.name}
-                        sku={selectedItem.sku}
-                      />
-                    </Draggable>
-                  </Grid>
-                ))}
-              </Grid>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              lg={4}
+              style={{ display: 'flex', flexDirection: 'column', flex: 1 }}
+            >
+              <div
+                style={{ display: 'flex', flex: 1, flexDirection: 'column' }}
+              >
+                Selected Items:
+                <Grid container spacing={24}>
+                  {this.state.selected.map(selectedItem => (
+                    <Grid item xs={12} md={6} lg={4}>
+                      <Draggable type="clothes" data={selectedItem.name}>
+                        <SelectedProductCard
+                          image={selectedItem.img}
+                          name={selectedItem.name}
+                          sku={selectedItem.sku}
+                        />
+                      </Draggable>
+                    </Grid>
+                  ))}
+                </Grid>
+              </div>
+              <Button
+                onClick={this.saveChanges}
+                color="secondary"
+                variant="raised"
+              >
+                Save Changes
+              </Button>
             </Grid>
           </Grid>
         </div>
