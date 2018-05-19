@@ -57,10 +57,17 @@ class MenProducts extends React.Component {
     this.setState({ selected: this.state.selected.concat([resulted]) });
   }
 
-  saveChanges(data) {
-    this.state.data;
-    const resulted = this.remItem(data.clothes, this.state.selected);
-    this.setState({ selected: this.state.selected.concat([resulted]) });
+  saveChanges() {
+    var data = this.state.data;
+    var selectedData = this.state.selected;
+    for (var i = 0; i < data.length; i++) {
+      for (var j = 0; j < selectedData.length; j++) {
+        if (data[i].name === selectedData[j].name) {
+          data[i].qty--;
+        }
+      }
+    }
+    this.setState({ data, selected: [] });
   }
 
   render() {
