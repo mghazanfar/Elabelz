@@ -17,6 +17,7 @@ class MenProducts extends React.Component {
     };
     this.autoSort = this.autoSort.bind(this);
     this.handleRightClick = this.handleRightClick.bind(this);
+    this.remItem = this.remItem.bind(this);
     this.onDrop = this.onDrop.bind(this);
   }
   autoSort() {
@@ -38,17 +39,22 @@ class MenProducts extends React.Component {
         })
       });
   }
+
+  remItem = (nameKey, myArray) => {
+    for (var i = 0; i < myArray.length; i++) {
+      if (myArray[i].name === nameKey) {
+        myArray.splice(i, 1);
+        return myArray;
+      }
+    }
+  };
   onDrop = data => {
     console.log('droped data: ', data);
+    const resulted = this.remItem(data.clothes, this.state.selected);
+    this.setState({ selected: this.state.selected.concat([resulted]) });
     console.log('selected data: ', this.state.selected);
   };
   render() {
-    var temp = 0;
-    const total = this.state.data.map(item => temp + item.qty);
-    temp = total.reduce(function(acc, val) {
-      return acc + val;
-    });
-    console.log('Total', temp);
     return (
       <React.Fragment>
         <div style={{ padding: 25 }}>
