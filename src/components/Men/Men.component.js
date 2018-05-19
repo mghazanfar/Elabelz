@@ -10,16 +10,19 @@ import { Draggable, Droppable } from 'react-drag-and-drop';
 
 class MenProducts extends React.Component {
   constructor(props) {
+    const initialProducts = menProducts;
     super(props);
     this.state = {
-      data: menProducts,
+      data: initialProducts,
       selected: []
     };
     this.autoSort = this.autoSort.bind(this);
     this.handleRightClick = this.handleRightClick.bind(this);
     this.remItem = this.remItem.bind(this);
     this.onDrop = this.onDrop.bind(this);
+    this.saveChanges = this.saveChanges.bind(this);
   }
+
   autoSort() {
     this.setState({
       data: menProducts.sort(function(a, b) {
@@ -40,20 +43,26 @@ class MenProducts extends React.Component {
       });
   }
 
-  remItem = (nameKey, myArray) => {
+  remItem(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
       if (myArray[i].name === nameKey) {
         myArray.splice(i, 1);
         return myArray;
       }
     }
-  };
-  onDrop = data => {
-    console.log('droped data: ', data);
+  }
+
+  onDrop(data) {
     const resulted = this.remItem(data.clothes, this.state.selected);
     this.setState({ selected: this.state.selected.concat([resulted]) });
-    console.log('selected data: ', this.state.selected);
-  };
+  }
+
+  saveChanges(data) {
+    this.state.data;
+    const resulted = this.remItem(data.clothes, this.state.selected);
+    this.setState({ selected: this.state.selected.concat([resulted]) });
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -106,7 +115,13 @@ class MenProducts extends React.Component {
                 Selected Items:
                 <Grid container spacing={24}>
                   {this.state.selected.map(selectedItem => (
-                    <Grid item xs={12} md={6} lg={4}>
+                    <Grid
+                      item
+                      xs={12}
+                      md={6}
+                      lg={4}
+                      style={{ display: selectedItem.name ? 'block' : 'none' }}
+                    >
                       <Draggable type="clothes" data={selectedItem.name}>
                         <SelectedProductCard
                           image={selectedItem.img}
@@ -122,6 +137,7 @@ class MenProducts extends React.Component {
                 onClick={this.saveChanges}
                 color="secondary"
                 variant="raised"
+                style={{ marginTop: 16 }}
               >
                 Save Changes
               </Button>
